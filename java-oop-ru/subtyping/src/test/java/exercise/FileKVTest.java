@@ -15,12 +15,12 @@ class FileKVTest {
 
     @BeforeEach
     public void beforeEach() throws Exception {
-        Files.deleteIfExists(FILE_PATH ); // Удаляем файл перед каждым тестом
+        Files.deleteIfExists(FILE_PATH); // Удаляем файл перед каждым тестом
     }
 
     @AfterEach
     public void afterEach() throws Exception {
-        Files.deleteIfExists(FILE_PATH ); // Удаляем файл после каждого теста
+        Files.deleteIfExists(FILE_PATH); // Удаляем файл после каждого теста
     }
 
     @Test
