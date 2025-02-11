@@ -1,9 +1,9 @@
 package exercise;
 
-// BEGIN
 import java.util.Map;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class FileKV implements KeyValueStorage {
@@ -12,7 +12,16 @@ public class FileKV implements KeyValueStorage {
 
     public FileKV(String filePath, Map<String, String> initialData) {
         this.filePath = filePath;
-        if (Files.exists(Path.of(filePath))) {
+        Path path = Paths.get(filePath);
+
+        // Создаем директорию, если она не существует
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create directory: " + path.getParent(), e);
+        }
+
+        if (Files.exists(path)) {
             loadFromFile(); // Загружаем данные из файла, если он существует
         } else {
             this.storage = new HashMap<>(initialData); // Используем начальные данные
@@ -43,13 +52,21 @@ public class FileKV implements KeyValueStorage {
     }
 
     private void saveToFile() {
-        String serializedData = Utils.serialize(storage); // Сериализуем данные в JSON
-        Utils.writeFile(Path.of(filePath), serializedData); // Записываем данные в файл
+        try {
+            String serializedData = Utils.serialize(storage); // Сериализуем данные в JSON
+            Utils.writeFile(Path.of(filePath), serializedData); // Записываем данные в файл
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save data to file: " + filePath, e);
+        }
     }
 
     private void loadFromFile() {
-        String serializedData = Utils.readFile(Path.of(filePath)); // Читаем данные из файла
-        storage = Utils.deserialize(serializedData); // Десериализуем данные из JSON
+        try {
+            String serializedData = Utils.readFile(Path.of(filePath)); // Читаем данные из файла
+            storage = Utils.deserialize(serializedData); // Десериализуем данные из JSON
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load data from file: " + filePath, e);
+        }
     }
 }
 // END
