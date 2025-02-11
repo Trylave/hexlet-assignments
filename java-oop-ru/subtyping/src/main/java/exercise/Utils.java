@@ -6,11 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 
 public class Utils {
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public static String serialize(Map<String, String> data) {
         try {
-            return mapper.writeValueAsString(data);
+            return MAPPER.writeValueAsString(data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -18,7 +18,7 @@ public class Utils {
 
     public static Map<String, String> deserialize(String data) {
         try {
-            return mapper.readValue(data, Map.class);
+            return MAPPER.readValue(data, Map.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
