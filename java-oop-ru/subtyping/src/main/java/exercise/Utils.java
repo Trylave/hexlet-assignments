@@ -1,14 +1,9 @@
-// Методы класса в этом файл нужны для самостоятельной работы
-
 package exercise;
 
 import java.util.Map;
-import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 
 public class Utils {
     private static final ObjectMapper mapper = new ObjectMapper();
