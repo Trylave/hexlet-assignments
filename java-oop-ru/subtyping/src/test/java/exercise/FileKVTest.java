@@ -40,10 +40,11 @@ class FileKVTest {
 
     @Test
     void testFilePersistence() {
+        // Создаем первый объект FileKV и добавляем данные
         KeyValueStorage storage = new FileKV(filePath.toString(), Map.of("key", "value"));
         storage.set("key2", "value2");
 
-        // Создаем новый объект, чтобы проверить, что данные сохранились в файл
+        // Создаем второй объект FileKV и проверяем, что данные загрузились из файла
         KeyValueStorage newStorage = new FileKV(filePath.toString(), Map.of());
         assertThat(newStorage.get("key", "")).isEqualTo("value");
         assertThat(newStorage.get("key2", "")).isEqualTo("value2");

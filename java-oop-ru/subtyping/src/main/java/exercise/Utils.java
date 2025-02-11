@@ -10,46 +10,38 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
-class Utils {
-    public static String serialize(Map<String, String> map) {
-        ObjectMapper mapper = new ObjectMapper();
-        String json = "";
+public class Utils {
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    public static String serialize(Map<String, String> data) {
         try {
-            json = mapper.writeValueAsString(map);
+            return mapper.writeValueAsString(data);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return json;
     }
 
-    public static Map<String, String> deserialize(String json) {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> data = new HashMap<>();
+    public static Map<String, String> deserialize(String data) {
         try {
-            data = mapper.readValue(json, Map.class);
+            return mapper.readValue(data, Map.class);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return data;
     }
 
-    public static String readFile(String path) {
-        Path fullPath = Paths.get(path).toAbsolutePath().normalize();
-        String content = "";
+    public static String readFile(Path filePath) {
         try {
-            content = Files.readString(fullPath);
+            return Files.readString(filePath);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return content;
     }
 
-    public static void writeFile(String path, String content) {
-        Path fullPath = Paths.get(path).toAbsolutePath().normalize();
+    public static void writeFile(Path filePath, String content) {
         try {
-            Files.writeString(fullPath, content, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.writeString(filePath, content);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

@@ -1,8 +1,10 @@
 package exercise;
 
 // BEGIN
-import java.util.HashMap;
 import java.util.Map;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.util.HashMap;
 
 public class FileKV implements KeyValueStorage {
     private String filePath;
@@ -10,8 +12,12 @@ public class FileKV implements KeyValueStorage {
 
     public FileKV(String filePath, Map<String, String> initialData) {
         this.filePath = filePath;
-        this.storage = new HashMap<>(initialData);
-        saveToFile(); // Сохраняем начальные данные в файл
+        if (Files.exists(Path.of(filePath))) {
+            loadFromFile(); // Загружаем данные из файла, если он существует
+        } else {
+            this.storage = new HashMap<>(initialData); // Используем начальные данные
+            saveToFile(); // Сохраняем начальные данные в файл
+        }
     }
 
     @Override
@@ -38,11 +44,11 @@ public class FileKV implements KeyValueStorage {
 
     private void saveToFile() {
         String serializedData = Utils.serialize(storage); // Сериализуем данные в JSON
-        Utils.writeFile(filePath, serializedData); // Записываем данные в файл
+        Utils.writeFile(Path.of(filePath), serializedData); // Записываем данные в файл
     }
 
     private void loadFromFile() {
-        String serializedData = Utils.readFile(filePath); // Читаем данные из файла
+        String serializedData = Utils.readFile(Path.of(filePath)); // Читаем данные из файла
         storage = Utils.deserialize(serializedData); // Десериализуем данные из JSON
     }
 }
