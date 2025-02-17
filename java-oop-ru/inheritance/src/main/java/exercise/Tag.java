@@ -4,7 +4,6 @@ import java.util.stream.Collectors;
 import java.util.Map;
 
 // BEGIN
-
 public class Tag {
     private String name;
     private Map<String, String> attributes;
@@ -23,11 +22,9 @@ public class Tag {
     }
 
     protected String attributesToString() {
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> entry : attributes.entrySet()) {
-            sb.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
-        }
-        return sb.toString();
+        return attributes.entrySet().stream()
+                .map(entry -> entry.getKey() + "=\"" + entry.getValue() + "\"")
+                .collect(Collectors.joining(" "));
     }
 }
 // END

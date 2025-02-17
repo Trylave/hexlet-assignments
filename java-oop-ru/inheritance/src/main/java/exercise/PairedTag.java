@@ -18,14 +18,13 @@ public class PairedTag extends Tag {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<").append(getName()).append(attributesToString()).append(">");
-        sb.append(body);
-        for (Tag child : children) {
-            sb.append(child.toString());
-        }
-        sb.append("</").append(getName()).append(">");
-        return sb.toString();
+        String attributesString = attributesToString();
+        String childrenString = children.stream()
+                .map(Tag::toString)
+                .collect(Collectors.joining());
+
+        return "<" + getName() + (attributesString.isEmpty() ? "" : " " + attributesString) + ">"
+                + body + childrenString + "</" + getName() + ">";
     }
 }
 // END

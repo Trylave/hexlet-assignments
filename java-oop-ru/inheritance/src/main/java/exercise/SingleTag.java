@@ -10,7 +10,8 @@ public class SingleTag extends Tag {
 
     @Override
     public String toString() {
-        return "<" + getName() + attributesToString() + ">";
+        String attributesString = attributesToString();
+        return "<" + getName() + (attributesString.isEmpty() ? "" : " " + attributesString) + ">";
     }
 }
 // END
