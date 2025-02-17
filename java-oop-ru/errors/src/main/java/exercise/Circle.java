@@ -1,6 +1,5 @@
 package exercise;
 
-// BEGIN
 public class Circle {
     private Point center;
     private int radius;
@@ -16,7 +15,7 @@ public class Circle {
 
     public double getSquare() throws NegativeRadiusException {
         if (radius < 0) {
-            throw new NegativeRadiusException();
+            throw new NegativeRadiusException("Радиус не может быть отрицательным");
         }
         return Math.PI * radius * radius;
     }
