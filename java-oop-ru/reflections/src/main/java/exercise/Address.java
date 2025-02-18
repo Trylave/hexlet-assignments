@@ -1,29 +1,21 @@
 package exercise;
 
-class Address {
-    // BEGIN
-    
-    // END
+public class Address {
+    @NotNull
     private String country;
 
-    // BEGIN
-    
-    // END
+    @NotNull
     private String city;
 
-    // BEGIN
-    
-    // END
+    @NotNull
     private String street;
 
-    // BEGIN
-    
-    // END
+    @NotNull
     private String houseNumber;
 
     private String flatNumber;
 
-    Address(String country, String city, String street, String houseNumber, String flatNumber) {
+    public Address(String country, String city, String street, String houseNumber, String flatNumber) {
         this.country = country;
         this.city = city;
         this.street = street;

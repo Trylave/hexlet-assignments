@@ -13,3 +13,4 @@ public @interface MinLength {
     // Если значение не было передано, вызов метода вернет значение по умолчанию.
     int minLength() default 3;
 }
+
