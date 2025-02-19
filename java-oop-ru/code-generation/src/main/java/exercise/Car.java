@@ -1,19 +1,28 @@
 package exercise;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 
-// BEGIN
+@AllArgsConstructor
+@Getter
+public class Car {
+    private int id;
+    private String brand;
+    private String model;
+    private String color;
+    private User owner;
 
-// END
-class Car {
-    int id;
-    String brand;
-    String model;
-    String color;
-    User owner;
+    // Сериализация объекта в JSON строку
+    public String serialize() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(this);
+    }
 
-    // BEGIN
-    
-    // END
+    // Десериализация JSON строки в объект Car
+    public static Car deserialize(String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, Car.class);
+    }
 }

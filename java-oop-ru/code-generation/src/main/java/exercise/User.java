@@ -1,13 +1,13 @@
 package exercise;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-// BEGIN
-
-// END
-class User {
-    int id;
-    String firstName;
-    String lastName;
-    int age;
+@AllArgsConstructor // Генерирует конструктор со всеми полями
+@Getter // Генерирует геттеры для всех полей
+public class User {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private int age;
 }
